@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:SAMS.Mobile.Models"
+             x:Class="SAMS.Mobile.Views.AttendanceHistoryPage"
+             Title="Attendance History">
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <Label Text="All Attendance Records" FontAttributes="Bold" FontSize="20" />
+        <CollectionView ItemsSource="{Binding Attendances}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Attendance">
+                    <Frame BorderColor="#E5EAF7" CornerRadius="10" Margin="0,3">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="{Binding AttendanceDate, StringFormat='{0:dddd, MMM dd yyyy}'}" />
+                            <Label Grid.Column="1" Text="{Binding Status}" FontAttributes="Bold" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
