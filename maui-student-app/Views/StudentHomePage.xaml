@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:SAMS.Mobile.Models"
+             x:Class="SAMS.Mobile.Views.StudentHomePage"
+             Title="Dashboard">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14">
+            <Label Text="Welcome" FontSize="18" TextColor="Gray" />
+            <Label Text="{Binding FullName}" FontSize="26" FontAttributes="Bold" />
+            <Label Text="{Binding StudentEmail}" TextColor="Gray" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Frame Grid.Column="0" BackgroundColor="#EAF8EF" CornerRadius="12">
+                    <VerticalStackLayout>
+                        <Label Text="Present" FontAttributes="Bold" />
+                        <Label Text="{Binding PresentCount}" FontSize="22" />
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Grid.Column="1" BackgroundColor="#FCEDEE" CornerRadius="12">
+                    <VerticalStackLayout>
+                        <Label Text="Absent" FontAttributes="Bold" />
+                        <Label Text="{Binding AbsentCount}" FontSize="22" />
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <Label Text="Recent Attendance" FontAttributes="Bold" FontSize="18" />
+            <CollectionView ItemsSource="{Binding Attendances}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Attendance">
+                        <Frame BorderColor="#E5EAF7" CornerRadius="10" Margin="0,3">
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                                <Label Text="{Binding AttendanceDate, StringFormat='Date: {0:MMM dd, yyyy}'}" />
+                                <Label Grid.Column="1" Text="{Binding Status}" FontAttributes="Bold" />
+                                <Label Grid.Row="1" Text="{Binding StudentNo, StringFormat='Student No: {0}'}" TextColor="Gray" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="View Full History" Clicked="OnHistoryClicked" />
+            <Button Text="Logout" Command="{Binding LogoutCommand}" TextColor="White" BackgroundColor="#8E2B2B" />
+            <Label Text="{Binding ErrorMessage}" TextColor="Red" IsVisible="{Binding HasError}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
